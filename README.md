@@ -7,5 +7,5 @@
 
 [Component Tree](https://gist.git.generalassemb.ly/davidtwhitlatch/414107e2560ae0bb65e233570f2fe056)
 
-[wireframes](https://app.lucidchart.com/documents/edit/b57e5e64-e902-42ca-abc6-d7b27fa3b4ab/0_0?shared=true)
+[wireframes](https://app.lucidchart.com/lucidchart/invitations/accept/f89c4d33-7aad-4998-a708-777068a4d74f)
 
