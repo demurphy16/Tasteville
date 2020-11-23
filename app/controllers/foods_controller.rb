@@ -1,5 +1,6 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: [:show, :update, :destroy]
+  before_action :authorize_request, only: [:create, :update, :destroy]
 
   # GET /foods
   def index
@@ -10,12 +11,13 @@ class FoodsController < ApplicationController
 
   # GET /foods/1
   def show
-    render json: @food
+    render json: @food, include: :flavors
   end
 
   # POST /foods
   def create
     @food = Food.new(food_params)
+    @food.user = @current_user
 
     if @food.save
       render json: @food, status: :created, location: @food
