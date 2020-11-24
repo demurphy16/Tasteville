@@ -8,7 +8,7 @@ export default function Foods(props) {
       {
         props.foods.map(food => (
           <React.Fragment key={food.id}>
-            <p>{food.name}</p>
+            <Link to={`/foods/${food.id}`}><p>{food.name}</p></Link>
             {
               food.user_id === props.currentUser?.id &&
               <>

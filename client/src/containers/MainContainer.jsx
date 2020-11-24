@@ -3,6 +3,7 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 
 import Flavors from '../screens/Flavors';
 import FoodCreate from '../screens/FoodCreate';
+import FoodDetail from '../screens/FoodDetail';
 import FoodEdit from '../screens/FoodEdit';
 import Foods from '../screens/Foods';
 import { getAllFlavors } from '../services/flavors'
@@ -56,11 +57,16 @@ export default function MainContainer(props) {
       <Route path='/foods/new'>
         <FoodCreate handleCreate={handleCreate} />
       </Route>
+      {/* Here, we're adding a route for our single food screen */}
+      {/* we're passing it "flavors" to use in our drop down form */}
+      <Route path='/foods/:id'>
+        <FoodDetail flavors={flavors} />
+      </Route>
       <Route path='/foods'>
         <Foods
-        foods={foods}
-        handleDelete={handleDelete}
-        currentUser={props.currentUser}
+          foods={foods}
+          handleDelete={handleDelete}
+          currentUser={props.currentUser}
         />
       </Route>
     </Switch>

@@ -45,7 +45,7 @@ class FoodsController < ApplicationController
     @flavor = Flavor.find(params[:flavor_id])
     @food.flavors << @flavor
 
-    render json: @food.flavors
+    render json: @food, include: :flavors
   end
 
   private
