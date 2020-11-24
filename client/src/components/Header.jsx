@@ -6,6 +6,7 @@ export default function Header() {
     <div>
       <h1>Tasteville</h1>
       <Link to='/login'>Login/Register</Link>
+      <hr />
     </div>
   )
 }
