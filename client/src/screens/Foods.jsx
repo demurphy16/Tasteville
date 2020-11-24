@@ -9,10 +9,17 @@ export default function Foods(props) {
         props.foods.map(food => (
           <React.Fragment key={food.id}>
             <p>{food.name}</p>
-            <Link to={`/foods/${food.id}/edit`}><button>Edit</button></Link>
+            {
+              food.user_id === props.currentUser?.id &&
+              <>
+                <Link to={`/foods/${food.id}/edit`}><button>Edit</button></Link>
+                <button onClick={() => props.handleDelete(food.id)}>Delete</button>
+              </>
+            }
           </React.Fragment>
         ))
       }
+      <br />
       <Link to='/foods/new'><button>Create</button></Link>
     </div>
   )

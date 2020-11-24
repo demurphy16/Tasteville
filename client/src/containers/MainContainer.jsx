@@ -6,7 +6,7 @@ import FoodCreate from '../screens/FoodCreate';
 import FoodEdit from '../screens/FoodEdit';
 import Foods from '../screens/Foods';
 import { getAllFlavors } from '../services/flavors'
-import { getAllFoods, postFood, putFood } from '../services/foods'
+import { destroyFood, getAllFoods, postFood, putFood } from '../services/foods'
 
 export default function MainContainer(props) {
   const [flavors, setFlavors] = useState([]);
@@ -40,6 +40,11 @@ export default function MainContainer(props) {
     history.push('/foods');
   }
 
+  const handleDelete = async (id) => {
+    await destroyFood(id);
+    setFoods(prevState => prevState.filter(food => food.id !== id))
+  }
+
   return (
     <Switch>
       <Route path='/flavors'>
@@ -52,7 +57,11 @@ export default function MainContainer(props) {
         <FoodCreate handleCreate={handleCreate} />
       </Route>
       <Route path='/foods'>
-        <Foods foods={foods} />
+        <Foods
+        foods={foods}
+        handleDelete={handleDelete}
+        currentUser={props.currentUser}
+        />
       </Route>
     </Switch>
   )

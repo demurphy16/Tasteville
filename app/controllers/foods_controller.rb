@@ -1,6 +1,7 @@
 class FoodsController < ApplicationController
-  before_action :set_food, only: [:show, :update, :destroy, :add_flavor]
+  before_action :set_food, only: [:show, :add_flavor]
   before_action :authorize_request, only: [:create, :update, :destroy]
+  before_action :set_user_food, only: [:update, :destroy]
 
   # GET /foods
   def index
@@ -51,6 +52,10 @@ class FoodsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_food
       @food = Food.find(params[:id])
+    end
+
+    def set_user_food
+      @food = @current_user.foods.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
