@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Foods(props) {
   return (
@@ -9,6 +10,7 @@ export default function Foods(props) {
           <p key={food.id}>{food.name}</p>
         ))
       }
+      <Link to='/foods/new'><button>Create</button></Link>
     </div>
   )
 }
