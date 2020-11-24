@@ -1,14 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 
 import './App.css';
 import Layout from './layouts/Layout';
 import Login from './screens/Login';
-import { loginUser } from './services/auth';
+import Register from './screens/Register';
+import { loginUser, registerUser, verifyUser } from './services/auth';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory()
+
+  useEffect(() => {
+    const handleVerify = async () => {
+      const userData = await verifyUser();
+      setCurrentUser(userData);
+      if(!userData) {
+        history.push('/')
+      }
+    }
+    handleVerify();
+  }, [])
 
   const handleLogin = async (loginData) => {
     const userData = await loginUser(loginData);
@@ -16,8 +28,14 @@ function App() {
     history.push('/');
   }
 
+  const handleRegister = async (registerData) => {
+    const userData = await registerUser(registerData);
+    setCurrentUser(userData);
+    history.push('/');
+  }
+
   return (
-    <Layout>
+    <Layout currentUser={currentUser}>
       <Switch>
 
         <Route path='/login'>
@@ -27,7 +45,7 @@ function App() {
 
         <Route path='/register'>
           {/* register */}
-          <h3>Register</h3>
+          <Register handleRegister={handleRegister} />
         </Route>
 
         <Route path='/'>
