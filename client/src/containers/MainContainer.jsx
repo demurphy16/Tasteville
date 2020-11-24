@@ -3,9 +3,10 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 
 import Flavors from '../screens/Flavors';
 import FoodCreate from '../screens/FoodCreate';
+import FoodEdit from '../screens/FoodEdit';
 import Foods from '../screens/Foods';
 import { getAllFlavors } from '../services/flavors'
-import { getAllFoods, postFood } from '../services/foods'
+import { getAllFoods, postFood, putFood } from '../services/foods'
 
 export default function MainContainer(props) {
   const [flavors, setFlavors] = useState([]);
@@ -31,11 +32,21 @@ export default function MainContainer(props) {
     history.push('/foods');
   }
 
+  const handleUpdate = async (id, foodData) => {
+    const updatedFood = await putFood(id, foodData);
+    setFoods(prevState => prevState.map(food => {
+      return food.id === Number(id) ? updatedFood : food
+    }))
+    history.push('/foods');
+  }
 
   return (
     <Switch>
       <Route path='/flavors'>
         <Flavors flavors={flavors} />
+      </Route>
+      <Route path='/foods/:id/edit'>
+        <FoodEdit foods={foods} handleUpdate={handleUpdate} />
       </Route>
       <Route path='/foods/new'>
         <FoodCreate handleCreate={handleCreate} />
